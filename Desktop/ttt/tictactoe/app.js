@@ -1,63 +1,84 @@
-const container = document.querySelector("container");
-let player = document.querySelector("player");
-let result1 = document.querySelector("result1");
-let result2 = document.querySelector("result2");
-let matchsNul = document.querySelector("matchnul")
+const info = document.querySelector('.info');
+const cellules = document.querySelectorAll('.cell');
 
 
 
+let lock = true;
+let player1 = "X" ;
 
+info.innerHTML = `Au tour de ${player1}`;
 
-const  scoring= {
-    playergame: 1,
-    resultplayer1: 0,
-    resultplayer2: 0,
-    matchnul: 0,
-    case1: 0,
-    case2: 0,
-    case3: 0,
-    case4: 0,
-    caes5: 0,
-    case6: 0,
-    case7: 0,
-    case8: 0,
-    case9: 0,
-}; 
+const victory = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+]
 
-const victory = () => {
-   if(
-        (scoring.case1 == scoring.case2 && scoring.case2 == scoring.case3 && scoring.case1 > 0) ||
-        (scoring.case1 == scoring.case4 && scoring.case4 == scoring.case7 && scoring.case1 > 0) ||
-        (scoring.case1 == scoring.case5 && scoring.case5 == scoring.case9 && scoring.case1 > 0) ||
-        (scoring.case1 == scoring.case2 && scoring.case2 == scoring.case3 && scoring.case1 > 0) ||
-        (scoring.case3 == scoring.case5 && scoring.case5 == scoring.case7 && scoring.case3 > 0) ||
-        (scoring.case3 == scoring.case6 && scoring.case6 == scoring.case9 && scoring.case3 > 0) ||
-        (scoring.case2 == scoring.case5 && scoring.case5 == scoring.case8 && scoring.case2 > 0) ||
-        (scoring.case4 == scoring.case5 && scoring.case5 == scoring.case9 && scoring.case4 > 0) ||
-        (scoring.case7 == scoring.case8 && scoring.case8 == scoring.case9 && scoring.case7 > 0) 
-   ) {   
-       console.log('victory');
-        
+let game = ["","","","","","","","",""];
 
-        
-        return true;
-    } else if (
-    scoring.case1 !== 0 &&
-    scoring.case2 !== 0 &&
-    scoring.case3 !== 0 &&
-    scoring.case4 !== 0 &&
-    scoring.case5 !== 0 &&
-    scoring.case6 !== 0 &&
-    scoring.case7 !== 0 &&
-    scoring.case8 !== 0 &&
-    scoring.case9 !== 0
-  ) {
-    return null;
-  } else {
-        return false;
+cellules.forEach(cell => {
+    cell.addEventListener('click', clickOnCase);
+})
+
+function clickOnCase(e){
+    const caseClick = e.target;
+    const caseIndex = caseClick.getAttribute('data-index');
+
+    if(game[caseIndex] !== "" || !lock){
+        return;
+    }
+
+    game[caseIndex] = player1;
+    caseClick.innerHTML = player1;
+    console.log(game)
+
+    checkresults();
+
+}
+
+function checkresults(){
+
+    let endOfGame = false;
+
+    for(let i = 0; i < victory.length; i++ ){
+
+        const checkWin = victory[i];
+        //  [0, 1, 2],
+        let a = game[checkWin[0]];
+        let b = game[checkWin[1]];
+        let c = game[checkWin[2]];
+
+        if(a === '' || b === '' || c === ''){
+            continue;
         }
-    };
+        if( a === b && b === c){
+            endOfGame = true;
+            break;
+        }
+    }
 
+    if(endOfGame){
+        info.innerText = `Le joueur ${player1} a gagné !`
+        lock = false;
+        return;
+    }
 
-   
+    let matchNul = !game.includes('');
+    if(matchNul){
+        info.innerText =  'Match nul !';
+        lock = false;
+        return;
+    }
 
+    changePlayers();
+}
+
+function changePlayers(){
+    player1 = player1 === "X" ? "O" : "X";
+    info.innerText = `Au tour de ${player1}`;
+}

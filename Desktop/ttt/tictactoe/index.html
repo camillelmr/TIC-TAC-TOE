@@ -1,54 +1,32 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="../tictactoe/app.css">
-<script src="../tictactoe/app.js" defer></script>
-
-    <title>Document</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Jeu du morpion</title>
+    <link rel="stylesheet" href="../ttt/app.css">
 </head>
-
 
 <body>
 
-<div>
-   
-    <header>
-        <h1>Tic Tac Toe</h1>
-    </header>
-  
+    <h1>Jeu du morpion</h1>
     <div class="container">
-        <table>
-            <tr>
-                <td id="case1"></td>
-                <td id="case2"></td>
-                <td id="case3"></td>
-        </tr>
-            <tr>
-                <td id="case4"></td>
-                <td id="case5"></td>
-                <td id="caes6"></td>
-        </tr>
-            <tr>
-                <td id="case7"></td>
-                <td id="case8"></td>
-                <td id="case9"></td>
-        </tr>
-
-        </table>
-
+        <div class="cell" data-index="0"></div>
+        <div class="cell" data-index="1"></div>
+        <div class="cell" data-index="2"></div>
+        <div class="cell" data-index="3"></div>
+        <div class="cell" data-index="4"></div>
+        <div class="cell" data-index="5"></div>
+        <div class="cell" data-index="6"></div>
+        <div class="cell" data-index="7"></div>
+        <div class="cell" data-index="8"></div>
+   
     </div>
+    <h2 class="info"></h2>
 
-    <div id="score">
-        <p>C'est au tour de Joueur <span id="player">1</span></p>
-        <p>Score Joueur 1 : <span id="result1">0</span></p>
-        <p>Score Joueur 2 : <span id="result2">0</span></p>
-        <p>Matchs nuls : <span id="eguality">0</span></p>
-    </div>
-
-</div>
-    
+    <script src="../ttt/app.js"></script>
 </body>
+
 </html>
